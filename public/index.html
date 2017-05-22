@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.23/css/uikit.min.css" />
+  <link rel="stylesheet" href="styles.css">
+
+  <title>Document</title>
+</head>
+<body>
+  <section id="loggedOut">
+    <nav class="uk-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+
+          <ul class="uk-navbar-nav">
+              <li class="uk-active"><a href="#">Fit&Geek</a></li>
+          </ul>
+
+      </div>
+      <div class="uk-navbar-right">
+
+          <ul class="uk-navbar-nav">
+
+              <li>
+                  <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom" type="button" name="button" onclick="LogInFb()">Inicia Con Facebook</button>
+              </li>
+              <li>
+                <button class="uk-button uk-button-danger uk-width-1-1 uk-margin-small-bottom" type="button" name="button" onclick="logInGoogle()">Inicia Con Google</button>
+              </li>
+          </ul>
+      </div>
+    </nav>
+    <div class="back">
+      <div>
+        <div class="texto">
+          <h2 align="center">
+               Únete a la mejor app del mundo mundial y crea tu lista de amigos!
+          </h2>
+
+          <h2 align="center">💪😎</h2>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <secion id="loggedIn">
+
+    <nav class="uk-navbar-container" uk-navbar>
+      <div class="uk-navbar-left">
+
+          <ul class="uk-navbar-nav">
+              <li class="uk-active"><a href="#">Fit&Geek</a></li>
+          </ul>
+
+      </div>
+      <div class="uk-navbar-right">
+
+          <ul class="uk-navbar-nav">
+
+
+
+              <li>
+                <a class="uk-button uk-button-secondary" type="button" name="button" onclick="logOut()">LogOut</a>
+              </li>
+          </ul>
+      </div>
+    </nav>
+    <div class="profile">
+        <h1 align="center" id="userName"></h1>
+      <div class="imageprofile">
+        <img  alt="" id="userImage">
+      </div>
+      <div class="invite">
+
+        <div class="uk-margin">
+            <label for="">Invite firends to your List</label>
+            <input id="fmail" class="uk-input" type="email" placeholder="Your friend's email">
+        </div>
+        <button onClick="addFriend()" class="uk-button uk-button-secondary uk-width-1-1" type="button" name="button">Invitar</button>
+      </div>
+      <div class="contacts">
+        <h2 align="center">Your Friends</h2>
+        <div class="friends" id="friends">
+
+        </div>
+      </div>
+    </div>
+
+  </secion>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- UIkit JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.23/js/uikit.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.23/js/uikit-icons.min.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCO2r9U25nAE7ljhXSGR65EnqZ8E3r-tyE",
+      authDomain: "spamlist-9ab3e.firebaseapp.com",
+      databaseURL: "https://spamlist-9ab3e.firebaseio.com",
+      projectId: "spamlist-9ab3e",
+      storageBucket: "spamlist-9ab3e.appspot.com",
+      messagingSenderId: "900522261691"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="main.js"> </script>
+  <script>
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      $('#loggedOut').hide();
+      $('#loggedIn').show();
+      console.log(user)
+      $('#userName').text('Hola '+user.displayName);
+      $('#userImage').attr("src", user.photoURL);
+
+
+      var database = firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/friends');
+      database.on('child_added', function(data) {
+        console.log(data.val())
+      	var friendmail = data.val().email;
+        var status = data.val().status;
+
+
+      	$('#friends').append(friendmail+"<br>");
+
+      });
+    } else {
+      // No user is signed in.
+      $('#loggedOut').show();
+      $('#loggedIn').hide();
+      console.log('inicia sesión')
+    }
+  });
+
+
+  </script>
+</body>
+</html>

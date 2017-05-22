@@ -1,0 +1,24 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/bin/nodejs /usr/bin/firebase init
+[debug] CLI Version:  3.8.0
+[debug] Platform:     linux
+[debug] Node Version: v6.10.3
+[debug] Time:         Mon May 22 2017 15:17:50 GMT-0500 (CDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/oswaldinho/Documentos/fixter/firebase/spamList
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
